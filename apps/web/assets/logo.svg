@@ -1,33 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
-  <!-- Minimalist Dark Obsidian Container -->
-  <rect width="100" height="100" rx="28" fill="#000000" />
-  <rect x="1" y="1" width="98" height="98" rx="27" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Transparent background container -->
+  <rect width="100%" height="100%" fill="transparent" />
   
-  <!-- Minimalist Iconic Dragon Mark -->
-  <g transform="translate(50, 50) scale(0.85)">
-    <!-- Dragon Wing & Body Geometry -->
-    <path d="M 0 -36 
-             C 18 -36, 32 -22, 32 0 
-             C 32 18, 22 28, 12 34 
-             L 0 42 
-             L -12 34 
-             C -22 28, -32 18, -32 0 
-             C -32 -22, -18 -36, 0 -36 Z" 
-          fill="#FFFFFF" />
+  <!-- Classic Octodragon Circular Badge Background -->
+  <circle cx="256" cy="256" r="245" fill="#141417" stroke="rgba(255,255,255,0.2)" stroke-width="10" />
+  
+  <defs>
+    <!-- Right half of Octodragon, mirrored for perfect logo symmetry -->
+    <g id="right-half">
+      
+      <!-- 1. DRAGON BODY BASE (WHITE SILHOUETTE) -->
+      
+      <!-- Torso -->
+      <path fill="#FFFFFF" d="M 256 250 C 330 250, 380 300, 380 360 C 380 390, 310 400, 256 400 Z" />
+      
+      <!-- Main Head Outline -->
+      <path fill="#FFFFFF" d="M 256 120 C 300 120, 340 130, 360 170 C 380 210, 370 260, 340 290 C 310 310, 280 320, 256 320 Z" />
+      
+      <!-- Swept-back Dragon Horn -->
+      <path fill="#FFFFFF" d="M 310 135 C 320 80, 350 40, 380 30 C 370 70, 360 110, 350 145 Z" />
+      
+      <!-- Side Frills / Dragon Ears -->
+      <path fill="#FFFFFF" d="M 365 210 C 400 200, 430 200, 450 220 C 430 230, 400 240, 370 250 Z" />
+      
+      <!-- Dragon Bat-Wings -->
+      <path fill="#FFFFFF" d="M 350 280 C 410 240, 460 220, 490 220 C 470 260, 460 290, 475 320 C 440 320, 420 340, 430 380 C 390 370, 370 370, 350 370 Z" />
+      
+      <!-- Thick Tentacles -->
+      <path d="M 315 380 Q 345 450, 360 480" fill="none" stroke="#FFFFFF" stroke-width="36" stroke-linecap="round" />
+      <path d="M 365 350 Q 420 410, 440 450" fill="none" stroke="#FFFFFF" stroke-width="36" stroke-linecap="round" />
+      
+      <!-- Tail Spikes -->
+      <polygon points="330,420 365,430 345,450" fill="#FFFFFF" />
+      <polygon points="345,450 380,465 355,475" fill="#FFFFFF" />
+      <polygon points="400,390 430,400 410,420" fill="#FFFFFF" />
+      <polygon points="420,420 455,425 435,445" fill="#FFFFFF" />
+
+      <!-- 2. BLACK CUTOUTS & DETAILS -->
+
+      <!-- Face Mask Cutout -->
+      <path fill="#141417" d="M 256 150 C 290 150, 320 160, 335 180 C 350 210, 345 250, 320 270 C 295 290, 270 300, 256 300 Z" />
+      
+      <!-- Horn Ribbing -->
+      <path d="M 330 110 Q 345 105, 355 120" stroke="#141417" stroke-width="4" fill="none" stroke-linecap="round" />
+      <path d="M 350 80 Q 365 75, 370 90" stroke="#141417" stroke-width="4" fill="none" stroke-linecap="round" />
+      
+      <!-- Wing Bones -->
+      <path d="M 350 290 Q 420 300, 475 320" stroke="#141417" stroke-width="5" stroke-linecap="round" fill="none" />
+      <path d="M 350 310 Q 400 340, 430 380" stroke="#141417" stroke-width="5" stroke-linecap="round" fill="none" />
+      
+      <!-- 3. FACIAL FEATURES -->
+      
+      <!-- Dragon Eye -->
+      <ellipse cx="305" cy="230" rx="15" ry="25" transform="rotate(20 305 230)" fill="#FFFFFF" />
+      <!-- Pupil -->
+      <circle cx="300" cy="220" r="5" fill="#141417" />
+      
+      <!-- Snout -->
+      <path d="M 270 280 Q 275 275, 280 280" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" />
+      
+      <!-- Smile -->
+      <path d="M 256 292 L 265 295 L 275 288" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round" />
+      
+      <!-- Fang -->
+      <polygon points="275,298 282,312 289,292" fill="#141417" />
+      
+    </g>
+  </defs>
+
+  <!-- Render Mirrored Left Side -->
+  <use href="#right-half" transform="translate(512, 0) scale(-1, 1)" />
+  
+  <!-- Render Right Side -->
+  <use href="#right-half" />
+
+  <!-- 4. CENTER GIT BRANCH TAIL -->
+  <g id="git-tail">
+    <path d="M 256 380 L 256 470" fill="none" stroke="#FFFFFF" stroke-width="36" stroke-linecap="butt" />
     
-    <!-- Negative Space Eye & Horn Cutout -->
-    <path d="M 0 -26 
-             L 14 -10 
-             L 0 6 
-             L -14 -10 Z" 
-          fill="#000000" />
+    <!-- Main Commit Node -->
+    <circle cx="256" cy="470" r="20" fill="#FFFFFF" />
+    <circle cx="256" cy="470" r="8" fill="#141417" />
     
-    <!-- Central Git Commit Node -->
-    <circle cx="0" cy="18" r="6" fill="#000000" />
-    <circle cx="0" cy="18" r="3" fill="#FFFFFF" />
+    <!-- Git Branching Line -->
+    <path d="M 256 470 C 275 470, 285 455, 285 435" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" />
     
-    <!-- Swept Dragon Horn Accents -->
-    <path d="M -14 -22 L -28 -38 L -18 -12 Z" fill="#FFFFFF" />
-    <path d="M 14 -22 L 28 -38 L 18 -12 Z" fill="#FFFFFF" />
+    <!-- Branch Commit Node -->
+    <circle cx="285" cy="435" r="10" fill="#FFFFFF" />
+    <circle cx="285" cy="435" r="4" fill="#141417" />
   </g>
 </svg>
