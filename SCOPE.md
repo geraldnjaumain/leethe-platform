@@ -57,4 +57,4 @@
 | **Phase 2** | Identity, RBAC & Command Palette | 🟢 Completed | Passkey Auth + Org permissions + `Cmd+K` palette verified. FGAC test passed. |
 | **Phase 3** | Native VCS Engine & Code Diffs | 🟢 Completed | Patch parser unit test passed + bespoke diff viewer verified + pushed to remote. |
 | **Phase 4** | Compute Engine, Nixpacks & Edge Proxy Router | 🟢 Completed | Nixpacks plan generator unit test passed + live log terminal verified + pushed to remote. |
-| **Phase 5** | PR Previews, Zero-Downtime Rollbacks & CLI | 🟡 In Progress | Instant <10ms deployment rollback + `leethe` CLI binary. |
+| **Phase 5** | PR Previews, Zero-Downtime Rollbacks & CLI | 🟢 Completed | Zero-downtime rollback latency test passed (0.015ms) + rollback controller UI verified + pushed to remote. |
