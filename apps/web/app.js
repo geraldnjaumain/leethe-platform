@@ -1,6 +1,7 @@
 import { CommandPalette } from './command-palette.js';
 import { DiffViewer } from './diff-viewer.js';
 import { LogTerminal } from './log-terminal.js';
+import { RollbackController } from './rollback-controller.js';
 import { parseGitDiff } from '../../services/vcs-engine/domain/diff-parser.ts';
 import { generateNixpacksPlan } from '../../services/compute-engine/domain/nixpacks-builder.ts';
 
@@ -110,4 +111,30 @@ document.addEventListener('DOMContentLoaded', () => {
       terminal.setStatus('Ready (Live)', 'success');
     }
   }, 250);
+
+  // Initialize Instant Zero-Downtime Rollback Controller
+  const mockRouteMap = {
+    domain: 'leethe-platform.leethe.app',
+    activeDeploymentId: 'dep_8a2f10b',
+    updatedAt: new Date().toISOString(),
+    upstreams: {
+      'dep_8a2f10b': { deploymentId: 'dep_8a2f10b', host: '10.0.4.12', port: 3000, weight: 100, isHealthy: true },
+      'dep_7f8a92a': { deploymentId: 'dep_7f8a92a', host: '10.0.4.11', port: 3000, weight: 100, isHealthy: true },
+      'dep_6e7a81f': { deploymentId: 'dep_6e7a81f', host: '10.0.4.10', port: 3000, weight: 100, isHealthy: true },
+    }
+  };
+
+  const mockDeployments = [
+    { id: 'dep_8a2f10b', commitSha: 'e318431', createdAt: '2 minutes ago' },
+    { id: 'dep_7f8a92a', commitSha: 'a1e6631', createdAt: '1 hour ago' },
+    { id: 'dep_6e7a81f', commitSha: 'f1812be', createdAt: '3 hours ago' },
+  ];
+
+  new RollbackController('#rollback-controller-root', {
+    routeMap: mockRouteMap,
+    deployments: mockDeployments,
+    onRollback: (updatedMap, record) => {
+      console.log('Rollback executed cleanly:', record);
+    }
+  });
 });
