@@ -2,6 +2,7 @@ import { CommandPalette } from './command-palette.js';
 import { DiffViewer } from './diff-viewer.js';
 import { LogTerminal } from './log-terminal.js';
 import { RollbackController } from './rollback-controller.js';
+import { renderDiagnosticsDashboard } from './diagnostics.js';
 import { LogWebSocketClient } from './ws-client.js';
 import { parseGitDiff } from '../../services/vcs-engine/domain/diff-parser.ts';
 import { generateNixpacksPlan } from '../../services/compute-engine/domain/nixpacks-builder.ts';
@@ -27,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentText = badgeSuccess.textContent.trim();
       if (currentText.includes('Deployed')) {
         badgeSuccess.className = 'leethe-badge leethe-badge-warning';
-        badgeSuccess.innerHTML = '<span class="leethe-badge-dot"></span> Re-deploying...';
+        badgeSuccess.innerHTML = 'Re-deploying...';
       } else {
         badgeSuccess.className = 'leethe-badge leethe-badge-success';
-        badgeSuccess.innerHTML = '<span class="leethe-badge-dot"></span> Deployed';
+        badgeSuccess.innerHTML = 'Deployed';
       }
     });
   }
@@ -87,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (wsBadge) {
         if (status === 'connected') {
           wsBadge.className = 'leethe-badge leethe-badge-success';
-          wsBadge.innerHTML = '<span class="leethe-badge-dot"></span> WS: Connected';
+          wsBadge.innerHTML = 'WS: Connected';
         } else {
           wsBadge.className = 'leethe-badge leethe-badge-warning';
-          wsBadge.innerHTML = `<span class="leethe-badge-dot"></span> WS: ${status}`;
+          wsBadge.innerHTML = `WS: ${status}`;
         }
       }
     }
@@ -134,4 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Rollback executed cleanly:', record);
     }
   });
+
+  // Render Go Runtime & Edge Proxy Diagnostics Component
+  const diagContainer = document.getElementById('diagnostics-dashboard-root');
+  if (diagContainer) {
+    renderDiagnosticsDashboard(diagContainer, {
+      status: 'healthy',
+      uptimeSeconds: 64.8,
+      numGoroutine: 4,
+      memAllocMB: 1.45,
+      activeRoutes: 3,
+      activeTarget: 'dep_8a2f10b'
+    });
+  }
 });
+
