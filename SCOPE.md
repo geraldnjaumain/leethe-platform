@@ -1,7 +1,8 @@
-# Leethe Project Scope & Architectural Boundaries
-
-## 1. Project Vision
+## 1. Project Vision & Technology Stack
 **Leethe** is an **AI-free, developer-first platform** that natively merges Git repository hosting and collaboration (**GitHub functionality**) with instant container builds, preview deployments, and zero-downtime hosting (**Vercel/Railway functionality**).
+
+* **Backend Stack**: **Go (Golang)** — All core services (`services/identity`, `services/vcs-engine`, `services/compute-engine`, `services/edge-proxy`) and the developer CLI (`apps/cli`) are implemented in Go for maximum speed, sub-10ms execution, and minimal memory overhead.
+* **Frontend Stack**: Bespoke Vanilla CSS design tokens + Modern Web HTML/JS (`apps/web/`).
 
 ---
 

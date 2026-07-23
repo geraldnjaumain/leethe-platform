@@ -36,8 +36,9 @@ No feature, UI component, or API endpoint—**no matter how trivial (e.g., a pri
 
 ### Scope Control & Boundaries:
 1. **Strict Adherence to `SCOPE.md`**: Only implement features explicitly defined in `SCOPE.md`. Never add unrequested features, "speculative convenience methods", or unexpected architectural layers.
-2. **AI-Free Constraint**: `leethe` is strictly an **AI-free platform**. Do NOT introduce AI chatbots, copilot widgets, LLM prompts, or unnecessary vector/embedding dependencies into `leethe`.
-3. **Zero Heavy UI Libraries**: Do NOT introduce prebuilt UI component libraries (e.g., Shadcn, MUI, AntD, Tailwind). Build bespoke UI primitives using Vanilla CSS and modern browser APIs.
+2. **Backend Language**: **Go (Golang)** is the mandatory backend language for all core domain services (`services/identity`, `services/vcs-engine`, `services/compute-engine`, `services/edge-proxy`) and the developer CLI (`apps/cli`).
+3. **AI-Free Constraint**: `leethe` is strictly an **AI-free platform**. Do NOT introduce AI chatbots, copilot widgets, LLM prompts, or unnecessary vector/embedding dependencies into `leethe`.
+4. **Zero Heavy UI Libraries**: Do NOT introduce prebuilt UI component libraries (e.g., Shadcn, MUI, AntD, Tailwind). Build bespoke UI primitives using Vanilla CSS and modern browser APIs.
 
 ---
 
