@@ -1,4 +1,4 @@
-.PHONY: all build-cli build-all test dev docker-up docker-down e2e clean
+.PHONY: all build-cli build-all test dev docker-up docker-down e2e bench clean
 
 all: build-cli
 
@@ -9,6 +9,10 @@ build-cli:
 build-all:
 	@echo "🔨 Cross-compiling Leethe CLI for all target platforms..."
 	bash scripts/build-binaries.sh
+
+bench:
+	@echo "⚡ Executing Go Performance Benchmarking Suite..."
+	go test -bench=. -benchmem ./tests/benchmark/...
 
 dev:
 	@echo "🚀 Launching Web Dashboard Harness..."
