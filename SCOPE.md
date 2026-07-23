@@ -61,3 +61,5 @@
 | **Phase 5** | PR Previews, Zero-Downtime Rollbacks & CLI | 🟢 Completed | Zero-downtime rollback latency test passed (0.015ms) + rollback controller UI verified + pushed to remote. |
 | **Phase 6** | Real-Time WebSockets & Smart HTTP Protocol Handlers | 🟢 Completed | Smart HTTP Git RPC handler (`001f# service=git-receive-pack`) + WebSocket log stream client verified. |
 | **Phase 7** | Production Docker Compose & Caddy Self-Hosting Stack | 🟢 Completed | Docker Compose stack + Caddyfile dynamic proxy config verified. |
+| **Phase 8** | Native Go VCS Engine & Smart HTTP Git Server | 🟢 Completed | Go Smart HTTP server (`services/vcs-engine/main.go`) + diff parser (`diff.go`) verified. |
+| **Phase 9** | Native Go Compute Engine & Nixpacks Builder Service | 🟡 In Progress | Go Compute Engine (`services/compute-engine/main.go`) + Nixpacks plan generator verified. |

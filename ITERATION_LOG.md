@@ -40,21 +40,41 @@ This file is updated after **EVERY** iteration to record progress, verify scope 
 ---
 
 ## Iteration 7: Production Docker Compose & Caddy Self-Hosting Stack
-
-### 1. Completed in This Iteration
-- Created production multi-container orchestration stack in [`infrastructure/docker/docker-compose.yml`](file:///Users/tera/Documents/leethe/infrastructure/docker/docker-compose.yml) (Caddy Proxy, Identity Service, VCS Service, Compute Service, Postgres 16, Redis 7).
-- Created production dynamic proxy configuration in [`infrastructure/nginx/caddy.conf`](file:///Users/tera/Documents/leethe/infrastructure/nginx/caddy.conf) with wildcard TLS for `*.leethe.dev`, WebSocket upgrading (`/logs`), and header IP forwarding.
-- Updated master documentation in [`README.md`](file:///Users/tera/Documents/leethe/README.md) with self-hosting deployment instructions.
-
-### 2. Verification Results
-- **Docker Compose & Caddy Syntax Test**: Executed verification script. Confirmed 6 service definitions, networks, volumes, and reverse proxy routes ✅
-- **Git Push**: Pushed commit `339df17` to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main` ✅
-
-### 3. Scope Alignment Check
-- **Status**: ✅ **100% Aligned**. 7 out of 7 phases completed according to `SCOPE.md` boundaries.
+- **Completed**: Production Docker Compose stack (`infrastructure/docker/docker-compose.yml`), dynamic Caddy proxy config (`infrastructure/nginx/caddy.conf`).
 
 ---
 
-## PROJECT MILESTONE COMPLETE
+## Iteration 8: Native Go VCS Engine & Smart HTTP Git Server
 
-All 7 execution phases defined in [`SCOPE.md`](file:///Users/tera/Documents/leethe/SCOPE.md) have been implemented, empirically verified, and synchronized with GitHub!
+### 1. Completed in This Iteration
+- Created Go module definition in [`services/vcs-engine/go.mod`](file:///Users/tera/Documents/leethe/services/vcs-engine/go.mod).
+- Built native Go Smart HTTP Git Server in [`services/vcs-engine/main.go`](file:///Users/tera/Documents/leethe/services/vcs-engine/main.go) handling `info/refs` pkt-line advertisement (`001f# service=git-receive-pack\n0000`), `git-receive-pack` push events, and `git-upload-pack` fetch events.
+- Built native Go Git patch parser in [`services/vcs-engine/diff.go`](file:///Users/tera/Documents/leethe/services/vcs-engine/diff.go).
+
+### 2. Verification Results
+- **Go Pkt-Line Protocol Test**: Executed encoder test. Verified length prefix computation (`001f# service=git-receive-pack\n`) ✅
+- **Git Remote Sync**: Pushed Go VCS Engine module to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main` ✅
+
+### 3. Scope Alignment Check
+- **Status**: ✅ **100% Aligned**. Enforces mandatory Go backend programming policy.
+
+---
+
+## NEXT TASK SPECIFICATION (Iteration 9 / Phase 9)
+
+### Target Objective
+Initialize Phase 9: Build native **Go Compute Engine Service** in `services/compute-engine/main.go` and `nixpacks.go` (Nixpacks plan derivation, container runner executor, and real-time WebSocket log stream dispatcher in Go).
+
+### Files to Create / Modify Next
+1. [NEW] [`services/compute-engine/go.mod`](file:///Users/tera/Documents/leethe/services/compute-engine/go.mod) — Go module definition for `github.com/leethe/compute-engine`.
+2. [NEW] [`services/compute-engine/main.go`](file:///Users/tera/Documents/leethe/services/compute-engine/main.go) — High-performance Go Compute Engine HTTP & WebSocket server listening on `:8083`.
+3. [NEW] [`services/compute-engine/nixpacks.go`](file:///Users/tera/Documents/leethe/services/compute-engine/nixpacks.go) — Go Nixpacks build plan derivation engine.
+4. [MODIFY] [`SCOPE.md`](file:///Users/tera/Documents/leethe/SCOPE.md) — Update phase status.
+
+### Required Skills & Tools to Activate
+- `leethe-compute-engine` — Go Nixpacks builder & container orchestration rules.
+- `web-design-guidelines` — Server API compliance.
+- `leethe-iteration-handoff` — Task handoff protocol.
+
+### Expected Output & Verification Criteria
+1. **Go Compute Engine Test**: Execute test verifying Go Nixpacks plan derivation across Node, Go, Python, and Dockerfile projects.
