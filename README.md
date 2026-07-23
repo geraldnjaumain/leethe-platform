@@ -43,7 +43,8 @@ leethe/
 ### 1. View Web Dashboard & Interactive Harness
 Serve the web verification harness locally:
 ```bash
-python3 -m http.server 8080 --directory apps/web
+make dev
+# or: python3 -m http.server 8080 --directory apps/web
 ```
 Open `http://localhost:8080` in your browser to inspect:
 * **Bespoke UI Primitives**: Buttons, status badges, micro-bordered cards, form controls.
@@ -54,16 +55,15 @@ Open `http://localhost:8080` in your browser to inspect:
 
 ### 2. Run CLI Command Prototype
 ```bash
-go run apps/cli/main.go --help
-go run apps/cli/main.go push
-go run apps/cli/main.go rollback dep_7f8a92a
+make build-cli
+# or: go run apps/cli/main.go --help
 ```
 
 ### 3. Production Self-Hosting with Docker Compose
 To launch the complete Leethe platform stack (Caddy Proxy, Identity, VCS, Compute, Postgres, Redis):
 ```bash
-cd infrastructure/docker
-docker compose up -d
+make docker-up
+# or: cd infrastructure/docker && docker compose up -d
 ```
 Access points:
 * **Web Dashboard & Gateway**: `http://localhost:80`
