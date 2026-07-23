@@ -6,6 +6,7 @@
 @import "../../packages/design-system/components/input.css";
 @import "../../packages/design-system/components/command-palette.css";
 @import "../../packages/design-system/components/diff-viewer.css";
+@import "../../packages/design-system/components/log-terminal.css";
 
 /* App Layout */
 .app-container {
