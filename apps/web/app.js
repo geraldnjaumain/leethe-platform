@@ -3,6 +3,7 @@ import { DiffViewer } from './diff-viewer.js';
 import { LogTerminal } from './log-terminal.js';
 import { RollbackController } from './rollback-controller.js';
 import { renderDiagnosticsDashboard } from './diagnostics.js';
+import { renderServiceTopology } from './topology.js';
 import { LogWebSocketClient } from './ws-client.js';
 import { parseGitDiff } from '../../services/vcs-engine/domain/diff-parser.ts';
 import { generateNixpacksPlan } from '../../services/compute-engine/domain/nixpacks-builder.ts';
@@ -148,5 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
       activeTarget: 'dep_8a2f10b'
     });
   }
+
+  // Render Service Topology Graph Component
+  const topologyContainer = document.getElementById('topology-canvas-root');
+  if (topologyContainer) {
+    renderServiceTopology(topologyContainer);
+  }
 });
+
 
