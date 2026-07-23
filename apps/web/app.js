@@ -2,8 +2,10 @@ import { CommandPalette } from './command-palette.js';
 import { DiffViewer } from './diff-viewer.js';
 import { LogTerminal } from './log-terminal.js';
 import { RollbackController } from './rollback-controller.js';
+import { LogWebSocketClient } from './ws-client.js';
 import { parseGitDiff } from '../../services/vcs-engine/domain/diff-parser.ts';
 import { generateNixpacksPlan } from '../../services/compute-engine/domain/nixpacks-builder.ts';
+import { handleLogStreamConnection } from '../../services/compute-engine/handlers/ws-logs.ts';
 
 // Sample Unified Git Patch
 const SAMPLE_GIT_PATCH = `diff --git a/services/identity/permissions.ts b/services/identity/permissions.ts
@@ -74,43 +76,38 @@ document.addEventListener('DOMContentLoaded', () => {
     mode: 'unified'
   });
 
-  // Initialize Live Log Terminal & Nixpacks Builder Stream
+  // Initialize Live Log Terminal & WebSocket Client Manager
   const terminal = new LogTerminal('#log-terminal-root');
-  
-  // Nixpacks Plan Derivation
-  const mockManifest = ['package.json', 'pnpm-lock.yaml', 'src/index.ts'];
-  const plan = generateNixpacksPlan(mockManifest);
+  const wsBadge = document.getElementById('ws-status-badge');
 
-  const buildSteps = [
-    { level: 'info', phase: 'setup', message: `Initializing Leethe Compute Engine for repo leethe-platform...` },
-    { level: 'info', phase: 'nixpacks', message: `Nixpacks Provider Detected: [${plan.provider.toUpperCase()}]` },
-    { level: 'info', phase: 'nixpacks', message: `Install Command: ${plan.installCommand}` },
-    { level: 'info', phase: 'nixpacks', message: `Build Command: ${plan.buildCommand}` },
-    { level: 'info', phase: 'nixpacks', message: `Start Command: ${plan.startCommand}` },
-    { level: 'info', phase: 'build', message: `Executing pnpm install... (packages installed in 1.4s)` },
-    { level: 'info', phase: 'build', message: `Building production bundle... (compiled successfully)` },
-    { level: 'info', phase: 'deploy', message: `Registering dynamic Pingora proxy upstream at target 10.0.4.12:3000...` },
-    { level: 'success', phase: 'deploy', message: `Deployment ready! Preview URL: https://dep-8a2f10b.leethe.dev` },
-  ];
-
-  let stepIdx = 0;
-  const interval = setInterval(() => {
-    if (stepIdx < buildSteps.length) {
-      const step = buildSteps[stepIdx];
-      const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
-      terminal.appendLog({
-        deploymentId: 'dep_8a2f10b',
-        timestamp,
-        level: step.level,
-        phase: step.phase,
-        message: step.message
-      });
-      stepIdx++;
-    } else {
-      clearInterval(interval);
-      terminal.setStatus('Ready (Live)', 'success');
+  const wsClient = new LogWebSocketClient({
+    url: 'ws://localhost:8080/logs',
+    onLog: (chunk) => terminal.appendLog(chunk),
+    onStatusChange: (status) => {
+      if (wsBadge) {
+        if (status === 'connected') {
+          wsBadge.className = 'leethe-badge leethe-badge-success';
+          wsBadge.innerHTML = '<span class="leethe-badge-dot"></span> WS: Connected';
+        } else {
+          wsBadge.className = 'leethe-badge leethe-badge-warning';
+          wsBadge.innerHTML = `<span class="leethe-badge-dot"></span> WS: ${status}`;
+        }
+      }
     }
-  }, 250);
+  });
+
+  wsClient.connect();
+
+  // Simulate Real-time Log Stream Connection
+  const mockSocket = {
+    send: (data) => {
+      const chunk = JSON.parse(data);
+      wsClient.receiveChunk(chunk);
+    },
+    close: () => wsClient.close()
+  };
+
+  handleLogStreamConnection(mockSocket, 'dep_8a2f10b');
 
   // Initialize Instant Zero-Downtime Rollback Controller
   const mockRouteMap = {
