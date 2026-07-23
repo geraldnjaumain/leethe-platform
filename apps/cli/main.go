@@ -67,9 +67,14 @@ func main() {
 		fmt.Println(ColorGreen + "✅ Authenticated as user 'geraldnjaumain' (Org: Leethe Core)" + ColorReset)
 
 	case "init":
-		printHeader()
-		fmt.Println(ColorCyan + "📁 Initializing Leethe platform manifest..." + ColorReset)
-		fmt.Println(ColorGreen + "✅ Created leethe.toml and registered repository remote." + ColorReset)
+		appName := ""
+		if len(os.Args) > 2 {
+			appName = os.Args[2]
+		}
+		if err := HandleInit(appName); err != nil {
+			fmt.Printf("\033[31mError:\033[0m %v\n", err)
+			os.Exit(1)
+		}
 
 	case "push":
 		printHeader()
