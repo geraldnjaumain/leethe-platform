@@ -1,10 +1,14 @@
-.PHONY: all build-cli test dev docker-up docker-down e2e clean
+.PHONY: all build-cli build-all test dev docker-up docker-down e2e clean
 
 all: build-cli
 
 build-cli:
 	@echo "🔨 Building Leethe CLI binary..."
 	go build -o bin/leethe apps/cli/main.go || echo "Go binary build ready."
+
+build-all:
+	@echo "🔨 Cross-compiling Leethe CLI for all target platforms..."
+	bash scripts/build-binaries.sh
 
 dev:
 	@echo "🚀 Launching Web Dashboard Harness..."
