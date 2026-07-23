@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  caddy-proxy:
+    image: caddy:2.7-alpine
+    container_name: leethe-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../nginx/caddy.conf:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - leethe-network
+    depends_on:
+      - compute-service
+      - vcs-service
+
+  identity-service:
+    build:
+      context: ../..
+      dockerfile: services/identity/Dockerfile
+    container_name: leethe-identity
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 8081
+      DATABASE_URL: postgres://leethe:leethe_secret_pass@postgres:5432/leethe_db
+      REDIS_URL: redis://redis:6379
+    networks:
+      - leethe-network
+    depends_on:
+      - postgres
+      - redis
+
+  vcs-service:
+    build:
+      context: ../..
+      dockerfile: services/vcs-engine/Dockerfile
+    container_name: leethe-vcs
+    restart: unless-stopped
+    ports:
+      - "2222:22" # Git SSH Port
+    environment:
+      PORT: 8082
+      GIT_REPO_STORAGE_PATH: /var/lib/leethe/repos
+    volumes:
+      - repo_data:/var/lib/leethe/repos
+    networks:
+      - leethe-network
+    depends_on:
+      - postgres
+
+  compute-service:
+    build:
+      context: ../..
+      dockerfile: services/compute-engine/Dockerfile
+    container_name: leethe-compute
+    restart: unless-stopped
+    environment:
+      PORT: 8083
+      DOCKER_HOST: unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - leethe-network
+    depends_on:
+      - redis
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: leethe-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: leethe
+      POSTGRES_PASSWORD: leethe_secret_pass
+      POSTGRES_DB: leethe_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - leethe-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: leethe-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - leethe-network
+
+networks:
+  leethe-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
+  postgres_data:
+  redis_data:
+  repo_data:

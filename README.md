@@ -59,6 +59,17 @@ go run apps/cli/main.go push
 go run apps/cli/main.go rollback dep_7f8a92a
 ```
 
+### 3. Production Self-Hosting with Docker Compose
+To launch the complete Leethe platform stack (Caddy Proxy, Identity, VCS, Compute, Postgres, Redis):
+```bash
+cd infrastructure/docker
+docker compose up -d
+```
+Access points:
+* **Web Dashboard & Gateway**: `http://localhost:80`
+* **Git SSH Server**: `ssh://git@localhost:2222`
+* **Wildcard Preview Deployments**: `http://*.leethe.dev`
+
 ---
 
 ## Architecture Specifications
