@@ -56,5 +56,5 @@
 | **Phase 1** | Bespoke Design System & UI Primitives Harness | 🟢 Completed | Visual test harness verifying all component states (`hover`, `active`, `focus-visible`, `contrast`, `alignment`). Verified via HTTP server. |
 | **Phase 2** | Identity, RBAC & Command Palette | 🟢 Completed | Passkey Auth + Org permissions + `Cmd+K` palette verified. FGAC test passed. |
 | **Phase 3** | Native VCS Engine & Code Diffs | 🟢 Completed | Patch parser unit test passed + bespoke diff viewer verified + pushed to remote. |
-| **Phase 4** | Compute Engine, Nixpacks & Edge Proxy Router | 🟡 In Progress | Nixpacks auto-build + dynamic Caddy/Pingora URL routing. |
-| **Phase 5** | PR Previews, Zero-Downtime Rollbacks & CLI | ⚪ Pending | Instant <10ms deployment rollback + `leethe` CLI binary. |
+| **Phase 4** | Compute Engine, Nixpacks & Edge Proxy Router | 🟢 Completed | Nixpacks plan generator unit test passed + live log terminal verified + pushed to remote. |
+| **Phase 5** | PR Previews, Zero-Downtime Rollbacks & CLI | 🟡 In Progress | Instant <10ms deployment rollback + `leethe` CLI binary. |
