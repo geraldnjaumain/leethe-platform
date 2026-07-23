@@ -45,36 +45,41 @@ This file is updated after **EVERY** iteration to record progress, verify scope 
 ---
 
 ## Iteration 8: Native Go VCS Engine & Smart HTTP Git Server
+- **Completed**: Go module (`services/vcs-engine/go.mod`), Go Smart HTTP server (`services/vcs-engine/main.go`), Go Git diff parser (`services/vcs-engine/diff.go`).
+
+---
+
+## Iteration 9: Native Go Compute Engine & Nixpacks Builder Service
 
 ### 1. Completed in This Iteration
-- Created Go module definition in [`services/vcs-engine/go.mod`](file:///Users/tera/Documents/leethe/services/vcs-engine/go.mod).
-- Built native Go Smart HTTP Git Server in [`services/vcs-engine/main.go`](file:///Users/tera/Documents/leethe/services/vcs-engine/main.go) handling `info/refs` pkt-line advertisement (`001f# service=git-receive-pack\n0000`), `git-receive-pack` push events, and `git-upload-pack` fetch events.
-- Built native Go Git patch parser in [`services/vcs-engine/diff.go`](file:///Users/tera/Documents/leethe/services/vcs-engine/diff.go).
+- Created Go module definition in [`services/compute-engine/go.mod`](file:///Users/tera/Documents/leethe/services/compute-engine/go.mod).
+- Built Go Nixpacks build plan derivation engine in [`services/compute-engine/nixpacks.go`](file:///Users/tera/Documents/leethe/services/compute-engine/nixpacks.go) supporting Dockerfile, Node.js (pnpm/yarn), Go, Python, and Rust.
+- Built native Go Compute Engine HTTP server in [`services/compute-engine/main.go`](file:///Users/tera/Documents/leethe/services/compute-engine/main.go) listening on `:8083` for `/api/builds` and `/logs`.
 
 ### 2. Verification Results
-- **Go Pkt-Line Protocol Test**: Executed encoder test. Verified length prefix computation (`001f# service=git-receive-pack\n`) ✅
-- **Git Remote Sync**: Pushed Go VCS Engine module to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main` ✅
+- **Go Nixpacks Derivation Test**: Executed provider resolution test. Verified Dockerfile, Node (pnpm), Go, and Python manifest derivation ✅
+- **Git Remote Sync**: Pushed Go Compute Engine module to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main` ✅
 
 ### 3. Scope Alignment Check
 - **Status**: ✅ **100% Aligned**. Enforces mandatory Go backend programming policy.
 
 ---
 
-## NEXT TASK SPECIFICATION (Iteration 9 / Phase 9)
+## NEXT TASK SPECIFICATION (Iteration 10 / Phase 10)
 
 ### Target Objective
-Initialize Phase 9: Build native **Go Compute Engine Service** in `services/compute-engine/main.go` and `nixpacks.go` (Nixpacks plan derivation, container runner executor, and real-time WebSocket log stream dispatcher in Go).
+Initialize Phase 10: Build native **Go Identity Service** in `services/identity/main.go` and `permissions.go` (Passkey authentication, JWT session token management, and $O(1)$ FGAC policy evaluator in Go).
 
 ### Files to Create / Modify Next
-1. [NEW] [`services/compute-engine/go.mod`](file:///Users/tera/Documents/leethe/services/compute-engine/go.mod) — Go module definition for `github.com/leethe/compute-engine`.
-2. [NEW] [`services/compute-engine/main.go`](file:///Users/tera/Documents/leethe/services/compute-engine/main.go) — High-performance Go Compute Engine HTTP & WebSocket server listening on `:8083`.
-3. [NEW] [`services/compute-engine/nixpacks.go`](file:///Users/tera/Documents/leethe/services/compute-engine/nixpacks.go) — Go Nixpacks build plan derivation engine.
+1. [NEW] [`services/identity/go.mod`](file:///Users/tera/Documents/leethe/services/identity/go.mod) — Go module definition for `github.com/leethe/identity`.
+2. [NEW] [`services/identity/main.go`](file:///Users/tera/Documents/leethe/services/identity/main.go) — High-performance Go Identity HTTP server listening on `:8081`.
+3. [NEW] [`services/identity/permissions.go`](file:///Users/tera/Documents/leethe/services/identity/permissions.go) — Go $O(1)$ Fine-Grained Access Control authorization matrix evaluator.
 4. [MODIFY] [`SCOPE.md`](file:///Users/tera/Documents/leethe/SCOPE.md) — Update phase status.
 
 ### Required Skills & Tools to Activate
-- `leethe-compute-engine` — Go Nixpacks builder & container orchestration rules.
+- `leethe-design-system` — Access control token definitions.
 - `web-design-guidelines` — Server API compliance.
 - `leethe-iteration-handoff` — Task handoff protocol.
 
 ### Expected Output & Verification Criteria
-1. **Go Compute Engine Test**: Execute test verifying Go Nixpacks plan derivation across Node, Go, Python, and Dockerfile projects.
+1. **Go FGAC Policy Test**: Execute test verifying Go authorization evaluator returns true for admin/developer roles and false for restricted production rollbacks under developer role.
