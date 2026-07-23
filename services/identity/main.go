@@ -6,74 +6,40 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 )
 
-type LoginRequest struct {
-	Username string `json:"username"`
-	Passkey  string `json:"passkey"`
+type AuthRequest struct {
+	Role   string `json:"role"`
+	Action string `json:"action"`
 }
 
-type LoginResponse struct {
-	SessionToken string      `json:"sessionToken"`
-	User         AuthContext `json:"user"`
-	ExpiresAt    string      `json:"expiresAt"`
+type AuthResponse struct {
+	Allowed bool   `json:"allowed"`
+	Role    string `json:"role"`
+	Action  string `json:"action"`
 }
 
-type PermissionRequest struct {
-	Context     AuthContext       `json:"context"`
-	Action      PermissionAction  `json:"action"`
-	Environment TargetEnvironment `json:"environment"`
-}
-
-func handleLogin(w http.ResponseWriter, r *http.Request) {
+func handleEvaluate(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	var req LoginRequest
+	var req AuthRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		req.Username = "geraldnjaumain"
+		req = AuthRequest{Role: "developer", Action: "repo:write"}
 	}
 
-	user := AuthContext{
-		UserID: "usr_8a2f10b",
-		OrgID:  "org_leethe_core",
-		Role:   RoleAdmin,
-	}
+	allowed := EvaluatePermission(req.Role, req.Action)
 
-	resp := LoginResponse{
-		SessionToken: "lth_sess_9a8b7c6d5e4f3a2b1c",
-		User:         user,
-		ExpiresAt:    time.Now().Add(24 * time.Hour).Format(time.RFC3339),
+	resp := AuthResponse{
+		Allowed: allowed,
+		Role:    req.Role,
+		Action:  req.Action,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(resp)
-
-	log.Printf("[identity-service] User '%s' authenticated via Passkey session\n", req.Username)
-}
-
-func handlePermissions(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	var req PermissionRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		req = PermissionRequest{
-			Context:     AuthContext{UserID: "usr_dev", Role: RoleDeveloper},
-			Action:      ActionRollback,
-			Environment: EnvProduction,
-		}
-	}
-
-	result := EvaluatePermission(req.Context, req.Action, req.Environment)
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(result)
 }
 
 func router(w http.ResponseWriter, r *http.Request) {
@@ -81,10 +47,8 @@ func router(w http.ResponseWriter, r *http.Request) {
 	case "/health":
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprintln(w, "Identity Service Healthy (Go 1.22)")
-	case "/api/auth/login":
-		handleLogin(w, r)
-	case "/api/auth/permissions":
-		handlePermissions(w, r)
+	case "/api/auth/evaluate":
+		handleEvaluate(w, r)
 	default:
 		http.NotFound(w, r)
 	}
@@ -96,7 +60,12 @@ func main() {
 		port = "8081"
 	}
 
-	log.Printf("[identity-service] Native Go Identity Service listening on :%s\n", port)
+	// Run DB schema migrations on startup
+	if _, err := RunMigrations(); err != nil {
+		log.Fatalf("Migration failed: %v", err)
+	}
+
+	log.Printf("[identity-service] Native Go Identity & FGAC Policy Evaluator listening on :%s\n", port)
 	if err := http.ListenAndServe(":"+port, http.HandlerFunc(router)); err != nil {
 		log.Fatalf("Server failed: %v", err)
 	}
