@@ -5,6 +5,7 @@
 @import "../../packages/design-system/components/card.css";
 @import "../../packages/design-system/components/input.css";
 @import "../../packages/design-system/components/command-palette.css";
+@import "../../packages/design-system/components/diff-viewer.css";
 
 /* App Layout */
 .app-container {

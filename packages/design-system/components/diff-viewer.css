@@ -1,0 +1,145 @@
+/* Bespoke Code Diff Viewer Component */
+.diff-container {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.diff-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background-color: var(--bg-base);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 13px;
+}
+
+.diff-file-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.diff-stat {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diff-stat-add {
+  color: var(--color-success);
+}
+
+.diff-stat-delete {
+  color: var(--color-danger);
+}
+
+.diff-mode-toggle {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 2px;
+  gap: 2px;
+}
+
+.diff-mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.diff-mode-btn.active {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Diff Table Layout */
+.diff-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  table-layout: fixed;
+}
+
+.diff-row {
+  border-bottom: 1px solid transparent;
+}
+
+.diff-num {
+  width: 48px;
+  min-width: 48px;
+  padding: 0 8px;
+  text-align: right;
+  vertical-align: top;
+  color: var(--text-muted);
+  user-select: none;
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  font-size: 11px;
+}
+
+.diff-content {
+  padding: 0 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  vertical-align: top;
+}
+
+/* Row Types */
+.diff-row-hunk {
+  background-color: rgba(59, 130, 246, 0.08);
+  color: var(--accent-primary);
+  font-size: 11px;
+  font-weight: 500;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.diff-row-hunk .diff-num {
+  background-color: rgba(59, 130, 246, 0.05);
+  color: var(--accent-primary);
+}
+
+.diff-row-add {
+  background-color: var(--color-success-bg);
+  color: var(--text-primary);
+}
+
+.diff-row-add .diff-num {
+  background-color: rgba(16, 185, 129, 0.18);
+  color: var(--color-success);
+}
+
+.diff-row-delete {
+  background-color: var(--color-danger-bg);
+  color: var(--text-primary);
+}
+
+.diff-row-delete .diff-num {
+  background-color: rgba(239, 68, 68, 0.18);
+  color: var(--color-danger);
+}
+
+/* Side-by-Side (Split) Mode */
+.diff-split-cell {
+  width: 50%;
+}
