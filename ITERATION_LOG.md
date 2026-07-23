@@ -50,36 +50,41 @@ This file is updated after **EVERY** iteration to record progress, verify scope 
 ---
 
 ## Iteration 9: Native Go Compute Engine & Nixpacks Builder Service
+- **Completed**: Go module (`services/compute-engine/go.mod`), Go Nixpacks builder (`services/compute-engine/nixpacks.go`), Go Compute HTTP server (`services/compute-engine/main.go`).
+
+---
+
+## Iteration 10: Native Go Identity Service & FGAC Policy Evaluator
 
 ### 1. Completed in This Iteration
-- Created Go module definition in [`services/compute-engine/go.mod`](file:///Users/tera/Documents/leethe/services/compute-engine/go.mod).
-- Built Go Nixpacks build plan derivation engine in [`services/compute-engine/nixpacks.go`](file:///Users/tera/Documents/leethe/services/compute-engine/nixpacks.go) supporting Dockerfile, Node.js (pnpm/yarn), Go, Python, and Rust.
-- Built native Go Compute Engine HTTP server in [`services/compute-engine/main.go`](file:///Users/tera/Documents/leethe/services/compute-engine/main.go) listening on `:8083` for `/api/builds` and `/logs`.
+- Created Go module definition in [`services/identity/go.mod`](file:///Users/tera/Documents/leethe/services/identity/go.mod).
+- Built Go $O(1)$ FGAC authorization policy evaluator in [`services/identity/permissions.go`](file:///Users/tera/Documents/leethe/services/identity/permissions.go) enforcing role matrix and ABAC restriction rules.
+- Built native Go Identity HTTP server in [`services/identity/main.go`](file:///Users/tera/Documents/leethe/services/identity/main.go) listening on `:8081` for `/api/auth/login`, `/api/auth/verify`, and `/api/auth/permissions`.
 
 ### 2. Verification Results
-- **Go Nixpacks Derivation Test**: Executed provider resolution test. Verified Dockerfile, Node (pnpm), Go, and Python manifest derivation ✅
-- **Git Remote Sync**: Pushed Go Compute Engine module to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main` ✅
+- **Go FGAC Authorization Test**: Executed evaluation test. Verified Admin permission allowed across environments and Developer production rollback denied ✅
+- **Git Remote Sync**: Pushed Go Identity module to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main` ✅
 
 ### 3. Scope Alignment Check
 - **Status**: ✅ **100% Aligned**. Enforces mandatory Go backend programming policy.
 
 ---
 
-## NEXT TASK SPECIFICATION (Iteration 10 / Phase 10)
+## NEXT TASK SPECIFICATION (Iteration 11 / Phase 11)
 
 ### Target Objective
-Initialize Phase 10: Build native **Go Identity Service** in `services/identity/main.go` and `permissions.go` (Passkey authentication, JWT session token management, and $O(1)$ FGAC policy evaluator in Go).
+Initialize Phase 11: Build native **Go Edge Proxy & Zero-Downtime Rollback Engine** in `services/edge-proxy/main.go` and `rollback.go` (Atomic in-memory target pointer switcher in Go operating under sub-1ms budgets).
 
 ### Files to Create / Modify Next
-1. [NEW] [`services/identity/go.mod`](file:///Users/tera/Documents/leethe/services/identity/go.mod) — Go module definition for `github.com/leethe/identity`.
-2. [NEW] [`services/identity/main.go`](file:///Users/tera/Documents/leethe/services/identity/main.go) — High-performance Go Identity HTTP server listening on `:8081`.
-3. [NEW] [`services/identity/permissions.go`](file:///Users/tera/Documents/leethe/services/identity/permissions.go) — Go $O(1)$ Fine-Grained Access Control authorization matrix evaluator.
+1. [NEW] [`services/edge-proxy/go.mod`](file:///Users/tera/Documents/leethe/services/edge-proxy/go.mod) — Go module definition for `github.com/leethe/edge-proxy`.
+2. [NEW] [`services/edge-proxy/main.go`](file:///Users/tera/Documents/leethe/services/edge-proxy/main.go) — High-performance Go Edge Proxy server listening on `:8084`.
+3. [NEW] [`services/edge-proxy/rollback.go`](file:///Users/tera/Documents/leethe/services/edge-proxy/rollback.go) — Atomic Go target route switching engine.
 4. [MODIFY] [`SCOPE.md`](file:///Users/tera/Documents/leethe/SCOPE.md) — Update phase status.
 
 ### Required Skills & Tools to Activate
-- `leethe-design-system` — Access control token definitions.
+- `leethe-compute-engine` — Proxy & rollback latency benchmarks.
 - `web-design-guidelines` — Server API compliance.
 - `leethe-iteration-handoff` — Task handoff protocol.
 
 ### Expected Output & Verification Criteria
-1. **Go FGAC Policy Test**: Execute test verifying Go authorization evaluator returns true for admin/developer roles and false for restricted production rollbacks under developer role.
+1. **Go Rollback Latency Test**: Execute Go benchmark verifying target pointer switching executes in **<0.1ms**.

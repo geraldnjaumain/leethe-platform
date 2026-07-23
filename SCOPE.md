@@ -63,4 +63,5 @@
 | **Phase 7** | Production Docker Compose & Caddy Self-Hosting Stack | 🟢 Completed | Docker Compose stack + Caddyfile dynamic proxy config verified. |
 | **Phase 8** | Native Go VCS Engine & Smart HTTP Git Server | 🟢 Completed | Go Smart HTTP server (`services/vcs-engine/main.go`) + diff parser (`diff.go`) verified. |
 | **Phase 9** | Native Go Compute Engine & Nixpacks Builder Service | 🟢 Completed | Go Compute Engine (`services/compute-engine/main.go`) + Nixpacks plan generator verified. |
-| **Phase 10** | Native Go Identity Service & FGAC Policy Evaluator | 🟡 In Progress | Go Identity HTTP server (`services/identity/main.go`) + FGAC evaluator (`permissions.go`) verified. |
+| **Phase 10** | Native Go Identity Service & FGAC Policy Evaluator | 🟢 Completed | Go Identity HTTP server (`services/identity/main.go`) + FGAC evaluator (`permissions.go`) verified. |
+| **Phase 11** | Native Go Edge Proxy & Zero-Downtime Rollback Engine | 🟡 In Progress | Go Edge Proxy (`services/edge-proxy/main.go`) + atomic rollback engine (`rollback.go`) verified. |
