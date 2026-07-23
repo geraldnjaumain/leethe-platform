@@ -1,4 +1,4 @@
-.PHONY: all build-cli build-all test dev docker-up docker-down e2e bench dist clean
+.PHONY: all build-cli build-all test dev docker-up docker-down e2e bench dist test-health clean
 
 all: build-cli
 
@@ -17,6 +17,10 @@ dist:
 bench:
 	@echo "⚡ Executing Go Performance Benchmarking Suite..."
 	go test -bench=. -benchmem ./tests/benchmark/...
+
+test-health:
+	@echo "🏥 Executing System Health & Production Diagnostics Test Suite..."
+	go test -v ./tests/health/...
 
 dev:
 	@echo "🚀 Launching Web Dashboard Harness..."
