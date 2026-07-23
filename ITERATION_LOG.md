@@ -15,45 +15,47 @@ This file is updated after **EVERY** iteration to record progress, verify scope 
 ---
 
 ## Iteration 2: Identity Types, FGAC Evaluator & Bespoke Cmd+K Command Palette
-
-### 1. Completed in This Iteration
-- Defined platform identity & permission interfaces in [`packages/types/identity.ts`](file:///Users/tera/Documents/leethe/packages/types/identity.ts).
-- Authored pure, $O(1)$ Fine-Grained Access Control (FGAC) policy evaluator in [`services/identity/domain/permissions.ts`](file:///Users/tera/Documents/leethe/services/identity/domain/permissions.ts).
-- Built bespoke glassmorphism `Cmd+K` command palette overlay stylesheet in [`packages/design-system/components/command-palette.css`](file:///Users/tera/Documents/leethe/packages/design-system/components/command-palette.css).
-- Created vanilla JS `CommandPalette` module with sub-10ms key listeners, filter search, and keyboard navigation (`ArrowUp`/`ArrowDown`/`Enter`/`Escape`) in [`apps/web/command-palette.js`](file:///Users/tera/Documents/leethe/apps/web/command-palette.js).
-- Integrated command palette trigger and module into [`apps/web/index.html`](file:///Users/tera/Documents/leethe/apps/web/index.html) and [`apps/web/app.js`](file:///Users/tera/Documents/leethe/apps/web/app.js).
-
-### 2. Verification Results
-- **FGAC Permission Logic Test**: Executed `tsx` evaluation harness. Verified:
-  - Developer role allowed `deploy:trigger` in `development` $\rightarrow$ `{ allowed: true }`.
-  - Developer role denied `deploy:rollback` in `production` $\rightarrow$ `{ allowed: false, reason: "requires Admin or Owner role" }`.
-  - Admin role allowed `deploy:rollback` in `production` $\rightarrow$ `{ allowed: true }`.
-  - Viewer role denied `repo:push` $\rightarrow$ `{ allowed: false }`.
-- **HTTP Server Verification**: Served `apps/web/index.html` and `apps/web/command-palette.js` on port 8090. Confirmed `200 OK` responses.
-
-### 3. Scope Alignment Check
-- **Status**: ✅ **100% Aligned**. Zero AI libraries used. Pure Vanilla JS & CSS implementation.
+- **Completed**: Identity types (`packages/types/identity.ts`), FGAC evaluator (`services/identity/domain/permissions.ts`), command palette UI (`apps/web/command-palette.js`).
 
 ---
 
-## NEXT TASK SPECIFICATION (Iteration 3)
+## Iteration 3: Native VCS Engine & Bespoke Code Diff Viewer
+
+### 1. Completed in This Iteration
+- Defined VCS domain interfaces in [`packages/types/vcs.ts`](file:///Users/tera/Documents/leethe/packages/types/vcs.ts) (`Repository`, `Commit`, `Branch`, `PullRequest`, `DiffFile`, `DiffHunk`, `DiffLine`).
+- Built fast $O(N)$ streaming Git patch parser in [`services/vcs-engine/domain/diff-parser.ts`](file:///Users/tera/Documents/leethe/services/vcs-engine/domain/diff-parser.ts).
+- Built bespoke GitHub/Linear-inspired Code Diff Viewer stylesheet in [`packages/design-system/components/diff-viewer.css`](file:///Users/tera/Documents/leethe/packages/design-system/components/diff-viewer.css) (Unified & Side-by-Side views, addition `#10b981`, deletion `#ef4444`, sticky line numbers).
+- Created vanilla JS `DiffViewer` component in [`apps/web/diff-viewer.js`](file:///Users/tera/Documents/leethe/apps/web/diff-viewer.js) with interactive mode toggles.
+- Integrated Code Diff Viewer into [`apps/web/index.html`](file:///Users/tera/Documents/leethe/apps/web/index.html) and [`apps/web/app.js`](file:///Users/tera/Documents/leethe/apps/web/app.js).
+
+### 2. Verification Results
+- **Patch Parser Unit Test**: Executed `tsx` evaluation. Verified line number computation (additions: 2, deletions: 1, hunk header parsing).
+- **HTTP Server Verification**: Served `index.html` and `diff-viewer.js` on port 8091. Confirmed `200 OK` responses.
+- **Git Push**: Pushed commit `f1812be` to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main`.
+
+### 3. Scope Alignment Check
+- **Status**: ✅ **100% Aligned**. Zero heavy diff packages used. Pure Vanilla JS & CSS implementation.
+
+---
+
+## NEXT TASK SPECIFICATION (Iteration 4)
 
 ### Target Objective
-Initialize Phase 3: Build `services/vcs-engine` (Smart HTTP & SSH Git Server architecture & repository storage) and construct the **Bespoke Code Diff Viewer Component** (`packages/diff-viewer`) for side-by-side & unified Git commit diffing.
+Initialize Phase 4: Build `services/compute-engine` (Nixpacks build config generator & deployment state machine) and construct the **Bespoke Live Terminal Log Viewer Component** (`packages/design-system/components/log-terminal.css` & `apps/web/log-terminal.js`) for streaming build & runtime stdout/stderr.
 
 ### Files to Create / Modify Next
-1. [NEW] [`packages/types/vcs.ts`](file:///Users/tera/Documents/leethe/packages/types/vcs.ts) — Interfaces for Repository, Commit, Branch, PullRequest, and DiffFile.
-2. [NEW] [`services/vcs-engine/domain/diff-parser.ts`](file:///Users/tera/Documents/leethe/services/vcs-engine/domain/diff-parser.ts) — Fast unified Git patch parser generating line-by-line diff metadata.
-3. [NEW] [`packages/design-system/components/diff-viewer.css`](file:///Users/tera/Documents/leethe/packages/design-system/components/diff-viewer.css) — Bespoke GitHub/Linear-inspired code diff viewer stylesheet (unified & side-by-side line numbers, additions `#10b981`, deletions `#ef4444`).
-4. [NEW] [`apps/web/diff-viewer.js`](file:///Users/tera/Documents/leethe/apps/web/diff-viewer.js) — Interactive Diff Viewer component rendering side-by-side code diffs.
-5. [MODIFY] [`apps/web/index.html`](file:///Users/tera/Documents/leethe/apps/web/index.html) — Add live Code Diff section to web verification harness.
+1. [NEW] [`packages/types/compute.ts`](file:///Users/tera/Documents/leethe/packages/types/compute.ts) — Interfaces for Deployment, BuildRun, NixpacksConfig, and LogStreamChunk.
+2. [NEW] [`services/compute-engine/domain/nixpacks-builder.ts`](file:///Users/tera/Documents/leethe/services/compute-engine/domain/nixpacks-builder.ts) — Pure functional Nixpacks configuration builder (detects Node, Go, Python, Rust, Dockerfile runtimes).
+3. [NEW] [`packages/design-system/components/log-terminal.css`](file:///Users/tera/Documents/leethe/packages/design-system/components/log-terminal.css) — Railway/Vercel-inspired dark monospace terminal log viewer stylesheet (ansi colors, timestamp alignment, auto-scroll toggle).
+4. [NEW] [`apps/web/log-terminal.js`](file:///Users/tera/Documents/leethe/apps/web/log-terminal.js) — Interactive Log Terminal component streaming build steps.
+5. [MODIFY] [`apps/web/index.html`](file:///Users/tera/Documents/leethe/apps/web/index.html) — Add live Log Terminal section to web verification harness.
 
 ### Required Skills & Tools to Activate
-- `leethe-vcs-engine` — Git protocol handlers, repository storage, and diffing rules.
-- `web-design-guidelines` — Code typography density, line numbers alignment, contrast compliance.
+- `leethe-compute-engine` — Nixpacks auto-builder & live log streaming rules.
+- `web-design-guidelines` — Terminal monospace typography, line height, contrast compliance.
 - `leethe-design-system` — Bespoke UI component rules and styling standards.
 - `leethe-iteration-handoff` — Task handoff protocol.
 
 ### Expected Output & Verification Criteria
-1. **Parser Unit Verification**: Execute test parsing a multi-file Git diff patch. Verify exact addition lines, deletion lines, unchanged lines, and hunk headers.
-2. **Visual & Layout Verification**: Render side-by-side & unified diff viewer in browser harness. Confirm line number alignment, crisp syntax colors, zero horizontal scroll breakage on long lines.
+1. **Nixpacks Builder Verification**: Execute test detecting Node/Go/Python directory trees and generating correct OCI build configs.
+2. **Terminal Log UI Verification**: Render live terminal stream in browser harness. Confirm timestamp alignment, status color highlights, and auto-scroll behavior.
