@@ -212,13 +212,14 @@ body {
 }
 
 .leethe-btn-danger {
-  background-color: rgba(239, 68, 68, 0.15);
+  background-color: #dc2626 !important;
   color: #ffffff !important;
-  border-color: var(--color-danger);
+  border-color: #dc2626 !important;
 }
 
 .leethe-btn-danger:hover:not(:disabled) {
-  background-color: rgba(239, 68, 68, 0.3);
+  background-color: #b91c1c !important;
+  border-color: #b91c1c !important;
 }
 
 .leethe-btn-sm {
@@ -226,7 +227,7 @@ body {
   font-size: 12px;
 }
 
-/* Bespoke Badge Primitive - Crisp White Text, Zero Dots */
+/* Bespoke Badge Primitive - Transparent Background, Crisp Borders, Zero Dots */
 .leethe-badge {
   display: inline-flex;
   align-items: center;
@@ -238,7 +239,7 @@ body {
   padding: 4px 10px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-default);
-  background-color: var(--bg-surface);
+  background-color: transparent !important;
   color: #ffffff !important;
   white-space: nowrap;
 }
@@ -248,19 +249,19 @@ body {
 }
 
 .leethe-badge-success {
-  background-color: rgba(16, 185, 129, 0.15);
+  background-color: transparent !important;
   border-color: var(--color-success) !important;
   color: #ffffff !important;
 }
 
 .leethe-badge-warning {
-  background-color: rgba(245, 158, 11, 0.15);
+  background-color: transparent !important;
   border-color: var(--color-warning) !important;
   color: #ffffff !important;
 }
 
 .leethe-badge-danger {
-  background-color: rgba(239, 68, 68, 0.15);
+  background-color: transparent !important;
   border-color: var(--color-danger) !important;
   color: #ffffff !important;
 }
@@ -268,6 +269,8 @@ body {
 .leethe-badge-mono {
   font-family: var(--font-mono) !important;
   font-size: 11px;
+  background-color: transparent !important;
+  border-color: var(--border-default) !important;
   color: #ffffff !important;
 }
 
