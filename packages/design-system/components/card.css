@@ -1,0 +1,36 @@
+/* Bespoke Card & Panel Primitive */
+.leethe-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.leethe-card-interactive {
+  cursor: pointer;
+}
+
+.leethe-card-interactive:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+.leethe-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.leethe-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.leethe-card-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}

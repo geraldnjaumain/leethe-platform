@@ -1,0 +1,92 @@
+/* Bespoke Button Primitive */
+.leethe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 0.05s ease;
+  outline: none;
+}
+
+.leethe-btn:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.leethe-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.leethe-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Primary Variant */
+.leethe-btn-primary {
+  background-color: var(--text-primary);
+  color: var(--text-inverse);
+  border-color: var(--text-primary);
+}
+
+.leethe-btn-primary:hover:not(:disabled) {
+  background-color: #e4e4e7;
+  border-color: #e4e4e7;
+}
+
+/* Secondary Variant */
+.leethe-btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+.leethe-btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+/* Ghost Variant */
+.leethe-btn-ghost {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+
+.leethe-btn-ghost:hover:not(:disabled) {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Danger Variant */
+.leethe-btn-danger {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+  border-color: var(--color-danger-border);
+}
+
+.leethe-btn-danger:hover:not(:disabled) {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: var(--color-danger);
+}
+
+/* Sizes */
+.leethe-btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.leethe-btn-lg {
+  padding: 10px 18px;
+  font-size: 14px;
+}

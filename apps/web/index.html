@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Leethe Developer Platform - AI-Free Unified VCS & Instant Compute Platform">
+  <title>Leethe Platform - Design System Verification Harness</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="app-logo">
+        <span class="app-logo-badge">LEETHE</span>
+        <h1 class="app-title">Developer Platform UI Harness</h1>
+      </div>
+      <div class="row">
+        <span class="leethe-badge leethe-badge-success">
+          <span class="leethe-badge-dot"></span> System Ready
+        </span>
+        <button class="leethe-btn leethe-btn-secondary leethe-btn-sm" id="cmd-palette-trigger" aria-label="Open Command Palette">
+          <span>Search Commands</span>
+          <span class="keyboard-shortcut-hint">Cmd+K</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Status Card -->
+      <section id="status-card-section">
+        <div class="leethe-card leethe-card-interactive" id="hero-status-card" tabindex="0" role="region" aria-label="Platform Deployment Status">
+          <div class="leethe-card-header">
+            <div>
+              <h2 class="leethe-card-title">VCS & Compute Engine Status</h2>
+              <p class="leethe-card-description">Zero-Downtime Dynamic Proxy & MicroVM Runtime</p>
+            </div>
+            <span class="leethe-badge leethe-badge-mono leethe-badge-success">
+              <span class="leethe-badge-dot"></span> v1.0.0-alpha
+            </span>
+          </div>
+          <div class="row" style="margin-top: 12px;">
+            <span class="leethe-badge leethe-badge-mono">sha: 7f8a92b</span>
+            <span class="leethe-badge leethe-badge-mono">pingora: 0.2.1</span>
+            <span class="leethe-badge leethe-badge-mono">nixpacks: 1.28.0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Component Grid -->
+      <div class="app-grid">
+        <!-- Buttons Test Section -->
+        <article class="leethe-card component-section" id="btn-section">
+          <h3 class="leethe-card-title">Bespoke Button Primitives</h3>
+          <p class="leethe-card-description">Interactive states & keyboard navigation focus</p>
+          <div class="row">
+            <button class="leethe-btn leethe-btn-primary" id="btn-primary">Primary Action</button>
+            <button class="leethe-btn leethe-btn-secondary" id="btn-secondary">Secondary</button>
+          </div>
+          <div class="row">
+            <button class="leethe-btn leethe-btn-ghost" id="btn-ghost">Ghost</button>
+            <button class="leethe-btn leethe-btn-danger" id="btn-danger">Delete Service</button>
+            <button class="leethe-btn leethe-btn-secondary" disabled id="btn-disabled">Disabled</button>
+          </div>
+        </article>
+
+        <!-- Status Badges Test Section -->
+        <article class="leethe-card component-section" id="badge-section">
+          <h3 class="leethe-card-title">Deployment Status Badges</h3>
+          <p class="leethe-card-description">Color-coded build & service state indicators</p>
+          <div class="row">
+            <span class="leethe-badge leethe-badge-success" id="badge-success">
+              <span class="leethe-badge-dot"></span> Deployed
+            </span>
+            <span class="leethe-badge leethe-badge-warning" id="badge-warning">
+              <span class="leethe-badge-dot"></span> Building (Nixpacks)
+            </span>
+            <span class="leethe-badge leethe-badge-danger" id="badge-danger">
+              <span class="leethe-badge-dot"></span> Build Failed
+            </span>
+          </div>
+        </article>
+
+        <!-- Form Inputs Test Section -->
+        <article class="leethe-card component-section" id="input-section">
+          <h3 class="leethe-card-title">Form Controls & Command Palette Input</h3>
+          <p class="leethe-card-description">High contrast input with focus ring</p>
+          <input type="text" class="leethe-input" id="input-repo-name" placeholder="Repository name (e.g. leethe-vcs)..." aria-label="Repository Name">
+          <input type="text" class="leethe-input leethe-input-mono" id="input-env-var" placeholder="DATABASE_URL=postgres://..." aria-label="Environment Variable">
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
