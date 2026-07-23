@@ -87,15 +87,15 @@
       gap: 12px;
     }
 
-    .app-logo-badge {
-      font-family: var(--font-sans) !important;
-      font-weight: 700;
-      font-size: 14px;
-      background-color: #ffffff !important;
-      color: #000000 !important;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      text-transform: lowercase;
+    .app-logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: contain;
+      transition: transform var(--transition-fast);
+    }
+    .app-logo-icon:hover {
+      transform: scale(1.08);
     }
 
     .app-title {
@@ -294,7 +294,7 @@
     <!-- Header -->
     <header class="app-header">
       <div class="app-logo">
-        <span class="app-logo-badge">leethe</span>
+        <img src="assets/logo.svg" class="app-logo-icon" alt="Platform Logo" />
         <h1 class="app-title">Developer Platform UI Harness</h1>
       </div>
       <div class="row">

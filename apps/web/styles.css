@@ -95,15 +95,15 @@ body {
   gap: 12px;
 }
 
-.app-logo-badge {
-  font-family: var(--font-sans) !important;
-  font-weight: 700;
-  font-size: 14px;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  text-transform: lowercase;
+.app-logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: contain;
+  transition: transform var(--transition-fast);
+}
+.app-logo-icon:hover {
+  transform: scale(1.08);
 }
 
 .app-title {
