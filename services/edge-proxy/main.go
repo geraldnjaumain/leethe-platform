@@ -32,6 +32,12 @@ func handleRoutes(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(globalRouteMap)
 }
 
+func handleDiagnostics(w http.ResponseWriter, r *http.Request) {
+	diag := GetDiagnosticsPayload(globalRouteMap)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(diag)
+}
+
 func handleRollback(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
@@ -60,6 +66,8 @@ func router(w http.ResponseWriter, r *http.Request) {
 	case "/health":
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprintln(w, "Edge Proxy Healthy (Go 1.22)")
+	case "/health/diagnostics":
+		handleDiagnostics(w, r)
 	case "/api/proxy/routes":
 		handleRoutes(w, r)
 	case "/api/proxy/rollback":
