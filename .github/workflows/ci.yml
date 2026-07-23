@@ -1,0 +1,49 @@
+name: Leethe Platform CI Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  e2e-and-test:
+    name: Run Go & End-to-End Test Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run End-to-End Integration Suite
+        run: make e2e
+
+  cross-compile:
+    name: Multi-Architecture Binary Build
+    runs-on: ubuntu-latest
+    needs: e2e-and-test
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Build All Target Binaries
+        run: bash scripts/build-binaries.sh
+
+      - name: Verify Binary Matrix
+        run: ls -la bin/
