@@ -65,25 +65,31 @@ This file is updated after **EVERY** iteration to record progress, verify scope 
 ---
 
 ## Iteration 12: Multi-Stage Go Dockerfiles & Root Makefile Integration
-
-### 1. Completed in This Iteration
-- Created multi-stage Go Dockerfiles for all 4 bounded context services:
-  - [`services/identity/Dockerfile`](file:///Users/tera/Documents/leethe/services/identity/Dockerfile)
-  - [`services/vcs-engine/Dockerfile`](file:///Users/tera/Documents/leethe/services/vcs-engine/Dockerfile)
-  - [`services/compute-engine/Dockerfile`](file:///Users/tera/Documents/leethe/services/compute-engine/Dockerfile)
-  - [`services/edge-proxy/Dockerfile`](file:///Users/tera/Documents/leethe/services/edge-proxy/Dockerfile)
-- Created root developer orchestration file [`Makefile`](file:///Users/tera/Documents/leethe/Makefile) (`make dev`, `make build-cli`, `make docker-up`, `make docker-down`).
-- Updated master [`README.md`](file:///Users/tera/Documents/leethe/README.md) with `make` commands.
-
-### 2. Verification Results
-- **Makefile Syntax Verification**: Validated target executions (`make dev`, `make test`, `make build-cli`) ✅
-- **Git Remote Sync**: Pushed commit `Iteration 12` to `git@github.com:geraldnjaumain/leethe-platform.git` on branch `main` ✅
-
-### 3. Scope Alignment Check
-- **Status**: ✅ **100% Aligned**. Complete 12-phase architecture fully implemented.
+- **Completed**: Multi-stage Dockerfiles (`services/*/Dockerfile`), root `Makefile`.
 
 ---
 
-## PROJECT MILESTONE COMPLETE
+## NEXT TASK SPECIFICATION (Iteration 13 / Phase 13)
 
-All 12 architectural phases specified across [`SCOPE.md`](file:///Users/tera/Documents/leethe/SCOPE.md) are complete, benchmarked, and synchronized with GitHub!
+### Target Objective
+Begin Phase 13: Build the **End-to-End Go Services Integration Test Suite** (`tests/e2e/e2e_test.go` and `go.mod`) to validate inter-service RPC communication across Identity (`:8081`), VCS Engine (`:8082`), Compute Engine (`:8083`), and Edge Proxy (`:8084`) under a single test harness.
+
+### Files to Create / Modify Next
+1. [NEW] [`tests/e2e/go.mod`](file:///Users/tera/Documents/leethe/tests/e2e/go.mod) — Go module definition for `github.com/leethe/tests/e2e`.
+2. [NEW] [`tests/e2e/e2e_test.go`](file:///Users/tera/Documents/leethe/tests/e2e/e2e_test.go) — End-to-End Go integration test verifying Passkey Auth -> Git Push -> Nixpacks Derivation -> Zero-Downtime Rollback flow.
+3. [MODIFY] [`Makefile`](file:///Users/tera/Documents/leethe/Makefile) — Add `make e2e` target.
+4. [MODIFY] [`SCOPE.md`](file:///Users/tera/Documents/leethe/SCOPE.md) — Update phase status.
+5. [MODIFY] [`ITERATION_LOG.md`](file:///Users/tera/Documents/leethe/ITERATION_LOG.md) — Record Iteration 13 handoff.
+
+### Required Skills & Tools to Activate
+- `leethe-iteration-handoff` — Mandatory task handoff protocol.
+- `leethe-vcs-engine` — Git RPC verification.
+- `leethe-compute-engine` — Compute & Rollback verification.
+- `web-design-guidelines` — Test criteria compliance.
+
+### Expected Output & Verification Criteria
+1. **Go E2E Test Suite Execution**: Execute Node/Go test runner simulating the full deployment pipeline:
+   - Step 1: User authenticates with Identity Service (`/api/auth/login`).
+   - Step 2: User pushes commit via Smart HTTP Git Server (`/info/refs?service=git-receive-pack`).
+   - Step 3: Compute Engine derives Nixpacks plan (`/api/builds`).
+   - Step 4: Edge Proxy performs atomic target pointer swap (`/api/proxy/rollback`) in **<0.1ms**.
