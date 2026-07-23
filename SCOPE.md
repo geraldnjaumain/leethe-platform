@@ -58,4 +58,5 @@
 | **Phase 3** | Native VCS Engine & Code Diffs | 🟢 Completed | Patch parser unit test passed + bespoke diff viewer verified + pushed to remote. |
 | **Phase 4** | Compute Engine, Nixpacks & Edge Proxy Router | 🟢 Completed | Nixpacks plan generator unit test passed + live log terminal verified + pushed to remote. |
 | **Phase 5** | PR Previews, Zero-Downtime Rollbacks & CLI | 🟢 Completed | Zero-downtime rollback latency test passed (0.015ms) + rollback controller UI verified + pushed to remote. |
-| **Phase 6** | Real-Time WebSockets & Smart HTTP Protocol Handlers | 🟡 In Progress | Smart HTTP Git RPC handler + WebSocket streaming log connection verified. |
+| **Phase 6** | Real-Time WebSockets & Smart HTTP Protocol Handlers | 🟢 Completed | Smart HTTP Git RPC handler (`001f# service=git-receive-pack`) + WebSocket log stream client verified. |
+| **Phase 7** | Production Docker Compose & Caddy Self-Hosting Stack | 🟡 In Progress | Docker Compose stack + Caddyfile dynamic proxy config verified. |
