@@ -83,6 +83,10 @@ func main() {
 		port = "8084"
 	}
 
+	// Initialize background health poller
+	poller := NewHealthPoller()
+	poller.StartPoller(globalRouteMap, 10*time.Second)
+
 	log.Printf("[edge-proxy] Native Go Edge Proxy listening on :%s\n", port)
 	if err := http.ListenAndServe(":"+port, http.HandlerFunc(router)); err != nil {
 		log.Fatalf("Server failed: %v", err)
