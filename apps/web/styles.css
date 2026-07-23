@@ -1,13 +1,77 @@
-/* Main Web Application Styles & Design System Bundle */
-@import "../../packages/design-system/tokens.css";
-@import "../../packages/design-system/components/button.css";
-@import "../../packages/design-system/components/badge.css";
-@import "../../packages/design-system/components/card.css";
-@import "../../packages/design-system/components/input.css";
-@import "../../packages/design-system/components/command-palette.css";
-@import "../../packages/design-system/components/diff-viewer.css";
-@import "../../packages/design-system/components/log-terminal.css";
-@import "../../packages/design-system/components/rollback-controller.css";
+/* Leethe Bespoke Design System & Web Application Stylesheet Bundle */
+
+:root {
+  /* Color Palette - Deep Obsidian Dark Mode */
+  --bg-base: #000000;
+  --bg-surface: #0a0a0c;
+  --bg-overlay: #121215;
+  --bg-hover: #18181c;
+  --bg-active: #222228;
+
+  /* Micro-Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.14);
+  --border-hover: rgba(255, 255, 255, 0.25);
+  --border-active: rgba(255, 255, 255, 0.4);
+
+  /* High-Contrast Typography */
+  --text-primary: #fcfcfc;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-inverse: #000000;
+
+  /* Accent & Semantic Colors */
+  --accent-primary: #3b82f6;
+  --accent-primary-hover: #2563eb;
+  --accent-primary-muted: rgba(59, 130, 246, 0.15);
+
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.12);
+  --color-success-border: rgba(16, 185, 129, 0.3);
+
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.12);
+  --color-warning-border: rgba(245, 158, 11, 0.3);
+
+  --color-danger: #ef4444;
+  --color-danger-bg: rgba(239, 68, 68, 0.12);
+  --color-danger-border: rgba(239, 68, 68, 0.3);
+
+  /* Focus & Accessibility */
+  --focus-ring: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--accent-primary);
+
+  /* Mandatory Universal Sans-Serif Font Stack */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", monospace;
+
+  /* Radius & Transitions */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, span, p, a, div {
+  font-family: var(--font-sans) !important;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /* App Layout */
 .app-container {
@@ -32,20 +96,21 @@
 }
 
 .app-logo-badge {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans) !important;
   font-weight: 700;
   font-size: 14px;
-  letter-spacing: 0.1em;
   background-color: var(--text-primary);
   color: var(--text-inverse);
   padding: 4px 8px;
   border-radius: var(--radius-sm);
+  text-transform: lowercase;
 }
 
 .app-title {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.02em;
+  color: var(--text-primary);
 }
 
 .app-grid {
@@ -69,11 +134,509 @@
 }
 
 .keyboard-shortcut-hint {
-  font-family: var(--font-mono);
+  font-family: var(--font-mono) !important;
   font-size: 11px;
   color: var(--text-muted);
   background-color: var(--bg-overlay);
   border: 1px solid var(--border-subtle);
   padding: 2px 6px;
   border-radius: var(--radius-sm);
+}
+
+/* Bespoke Button Primitive */
+.leethe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans) !important;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform 0.05s ease;
+  outline: none;
+}
+
+.leethe-btn:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+.leethe-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.leethe-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.leethe-btn-primary {
+  background-color: var(--text-primary);
+  color: var(--text-inverse);
+  border-color: var(--text-primary);
+}
+
+.leethe-btn-primary:hover:not(:disabled) {
+  background-color: #e4e4e7;
+  border-color: #e4e4e7;
+}
+
+.leethe-btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+}
+
+.leethe-btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+.leethe-btn-ghost {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+
+.leethe-btn-ghost:hover:not(:disabled) {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.leethe-btn-danger {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+  border-color: var(--color-danger-border);
+}
+
+.leethe-btn-danger:hover:not(:disabled) {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+.leethe-btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+/* Bespoke Badge Primitive */
+.leethe-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans) !important;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.leethe-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--text-muted);
+}
+
+.leethe-badge-success {
+  background-color: var(--color-success-bg);
+  border-color: var(--color-success-border);
+  color: var(--color-success);
+}
+.leethe-badge-success .leethe-badge-dot {
+  background-color: var(--color-success);
+}
+
+.leethe-badge-warning {
+  background-color: var(--color-warning-bg);
+  border-color: var(--color-warning-border);
+  color: var(--color-warning);
+}
+.leethe-badge-warning .leethe-badge-dot {
+  background-color: var(--color-warning);
+}
+
+.leethe-badge-danger {
+  background-color: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+.leethe-badge-danger .leethe-badge-dot {
+  background-color: var(--color-danger);
+}
+
+.leethe-badge-mono {
+  font-family: var(--font-mono) !important;
+  font-size: 11px;
+}
+
+/* Bespoke Card & Panel Primitive */
+.leethe-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.leethe-card-interactive {
+  cursor: pointer;
+}
+
+.leethe-card-interactive:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+.leethe-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.leethe-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.leethe-card-description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Bespoke Input Primitive */
+.leethe-input {
+  width: 100%;
+  font-family: var(--font-sans) !important;
+  font-size: 13px;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.leethe-input::placeholder {
+  color: var(--text-muted);
+}
+
+.leethe-input:hover {
+  border-color: var(--border-hover);
+}
+
+.leethe-input:focus-visible,
+.leethe-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: var(--focus-ring);
+}
+
+.leethe-input-mono {
+  font-family: var(--font-mono) !important;
+}
+
+/* Bespoke Cmd+K Command Palette Overlay */
+.cmd-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+.cmd-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cmd-dialog {
+  width: 100%;
+  max-width: 640px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  transform: translateY(-8px) scale(0.98);
+  transition: transform var(--transition-normal);
+}
+
+.cmd-backdrop.open .cmd-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.cmd-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 12px;
+}
+
+.cmd-search-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.cmd-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-sans) !important;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.cmd-input::placeholder {
+  color: var(--text-muted);
+}
+
+.cmd-list {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.cmd-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 13px;
+  transition: background-color var(--transition-fast);
+}
+
+.cmd-item:hover,
+.cmd-item.active {
+  background-color: var(--bg-hover);
+}
+
+.cmd-item-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cmd-item-icon {
+  font-size: 14px;
+}
+
+.cmd-item-shortcut {
+  font-family: var(--font-mono) !important;
+  font-size: 11px;
+  color: var(--text-muted);
+  background-color: var(--bg-overlay);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.cmd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background-color: var(--bg-overlay);
+  border-top: 1px solid var(--border-subtle);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Bespoke Code Diff Viewer Component */
+.diff-container {
+  font-family: var(--font-mono) !important;
+  font-size: 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.diff-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background-color: var(--bg-overlay);
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-sans) !important;
+}
+
+.diff-filepath {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.diff-stats {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.diff-stat-add {
+  color: var(--color-success);
+}
+
+.diff-stat-del {
+  color: var(--color-danger);
+}
+
+.diff-content {
+  overflow-x: auto;
+}
+
+.diff-line {
+  display: flex;
+  line-height: 20px;
+}
+
+.diff-line-num {
+  width: 44px;
+  padding: 0 8px;
+  color: var(--text-muted);
+  text-align: right;
+  user-select: none;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.diff-line-content {
+  flex: 1;
+  padding: 0 12px;
+  white-space: pre;
+}
+
+.diff-line-add {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+}
+
+.diff-line-del {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.diff-hunk-header {
+  background-color: var(--bg-overlay);
+  color: var(--text-muted);
+  padding: 4px 16px;
+  font-size: 11px;
+}
+
+/* Bespoke Log Terminal Component */
+.terminal-container {
+  background-color: #050507;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font-mono) !important;
+  margin-top: 16px;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background-color: var(--bg-overlay);
+  border-bottom: 1px solid var(--border-subtle);
+  font-family: var(--font-sans) !important;
+  font-size: 12px;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.terminal-dot-red { background-color: #ff5f56; }
+.terminal-dot-yellow { background-color: #ffbd2e; }
+.terminal-dot-green { background-color: #27c93f; }
+
+.terminal-body {
+  padding: 14px;
+  max-height: 280px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.terminal-log-line {
+  display: flex;
+  gap: 12px;
+}
+
+.terminal-time {
+  color: var(--text-muted);
+}
+
+.terminal-level-info { color: var(--accent-primary); }
+.terminal-level-success { color: var(--color-success); }
+.terminal-level-warning { color: var(--color-warning); }
+.terminal-level-error { color: var(--color-danger); }
+
+/* Bespoke Rollback Controller Component */
+.rollback-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-top: 24px;
+}
+
+.rollback-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.rollback-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-overlay);
+  margin-bottom: 10px;
+  transition: border-color var(--transition-fast);
+}
+
+.rollback-item.active-target {
+  border-color: var(--color-success-border);
+  background-color: var(--color-success-bg);
 }
