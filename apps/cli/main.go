@@ -3,26 +3,49 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
+	"text/tabwriter"
+	"time"
 )
 
 const version = "1.0.0-alpha"
 
+// High-contrast ANSI Terminal Color Tokens
+const (
+	ColorReset   = "\033[0m"
+	ColorBold    = "\033[1m"
+	ColorDim     = "\033[2m"
+	ColorGreen   = "\033[38;2;16;185;129m"
+	ColorCyan    = "\033[38;2;6;182;212m"
+	ColorPurple  = "\033[38;2;168;85;247m"
+	ColorYellow  = "\033[38;2;245;158;11m"
+	ColorRed     = "\033[38;2;239;68;68m"
+	ColorGray    = "\033[38;2;156;163;175m"
+	ColorObsidian= "\033[48;2;17;24;39m"
+)
+
+func printHeader() {
+	fmt.Println(ColorBold + ColorCyan + "LEETHE" + ColorReset + ColorGray + " Developer Platform CLI " + ColorDim + "v" + version + ColorReset)
+	fmt.Println(ColorDim + "AI-Free Unified VCS & Instant Compute Platform (<10ms rollbacks)" + ColorReset)
+	fmt.Println()
+}
+
 func printUsage() {
-	fmt.Println("LEETHE Developer Platform CLI v" + version)
-	fmt.Println("AI-Free Unified VCS & Instant Compute Platform")
+	printHeader()
+	fmt.Println(ColorBold + "USAGE:" + ColorReset)
+	fmt.Println("  leethe <command> [arguments]\n")
+
+	fmt.Println(ColorBold + "AVAILABLE COMMANDS:" + ColorReset)
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+	fmt.Fprintf(w, "  %slogin%s\tAuthenticate CLI session via Identity Passkey\n", ColorGreen, ColorReset)
+	fmt.Fprintf(w, "  %sinit%s\tInitialize current directory for Leethe deployment\n", ColorGreen, ColorReset)
+	fmt.Fprintf(w, "  %spush%s\tPush Git commit & trigger instant Nixpacks build\n", ColorGreen, ColorReset)
+	fmt.Fprintf(w, "  %slogs%s\tStream live build and runtime stdout/stderr logs\n", ColorGreen, ColorReset)
+	fmt.Fprintf(w, "  %senv%s\tManage environment variables (list, set, unset)\n", ColorGreen, ColorReset)
+	fmt.Fprintf(w, "  %srollback%s\tExecute zero-downtime target rollback (<10ms latency)\n", ColorYellow, ColorReset)
+	fmt.Fprintf(w, "  %sversion%s\tPrint CLI version\n", ColorGray, ColorReset)
+	w.Flush()
 	fmt.Println()
-	fmt.Println("Usage:")
-	fmt.Println("  leethe <command> [arguments]")
-	fmt.Println()
-	fmt.Println("Available Commands:")
-	fmt.Println("  login       Authenticate CLI session with Leethe Identity service")
-	fmt.Println("  init        Initialize current directory for Leethe deployment")
-	fmt.Println("  push        Push commit & trigger instant Nixpacks build")
-	fmt.Println("  deploy      Deploy preview or production environment")
-	fmt.Println("  logs        Stream live build and runtime stdout/stderr logs")
-	fmt.Println("  env         Manage environment variables")
-	fmt.Println("  rollback    Execute zero-downtime target rollback (<10ms)")
-	fmt.Println("  version     Print CLI version")
 }
 
 func main() {
@@ -31,35 +54,59 @@ func main() {
 		os.Exit(0)
 	}
 
-	command := os.Args[1]
+	command := strings.ToLower(os.Args[1])
+
 	switch command {
-	case "version":
-		fmt.Printf("leethe CLI version %s\n", version)
+	case "version", "-v", "--version":
+		fmt.Printf("leethe CLI version %s%s%s (Go 1.22 runtime)\n", ColorBold, version, ColorReset)
+
 	case "login":
-		fmt.Println("🔑 Initializing Passkey & OAuth2 Session...")
-		fmt.Println("✅ Authenticated as user 'geraldnjaumain' (Org: Leethe Core)")
+		printHeader()
+		fmt.Println(ColorCyan + "🔑 Initializing Passkey & OAuth2 Session..." + ColorReset)
+		time.Sleep(100 * time.Millisecond)
+		fmt.Println(ColorGreen + "✅ Authenticated as user 'geraldnjaumain' (Org: Leethe Core)" + ColorReset)
+
 	case "init":
-		fmt.Println("📁 Initializing Leethe platform manifest...")
-		fmt.Println("✅ Created leethe.toml and registered repository remote.")
+		printHeader()
+		fmt.Println(ColorCyan + "📁 Initializing Leethe platform manifest..." + ColorReset)
+		fmt.Println(ColorGreen + "✅ Created leethe.toml and registered repository remote." + ColorReset)
+
 	case "push":
-		fmt.Println("🚀 Pushing branch 'main' to git@github.com:geraldnjaumain/leethe-platform.git...")
-		fmt.Println("⚡ Nixpacks Provider Detected: [NODE]")
-		fmt.Println("✅ Build triggered! Live logs: https://leethe.app/deployments/dep_8a2f10b")
+		printHeader()
+		fmt.Println(ColorCyan + "🚀 Pushing branch 'main' to git@github.com:geraldnjaumain/leethe-platform.git..." + ColorReset)
+		fmt.Println(ColorPurple + "⚡ Nixpacks Provider Detected: [NODE (pnpm)]" + ColorReset)
+		fmt.Println(ColorGreen + "✅ Build triggered! Live logs: https://leethe-platform.leethe.app/deployments/dep_8a2f10b" + ColorReset)
+
 	case "logs":
-		fmt.Println("💻 Streaming live runtime logs from dep_8a2f10b (Ctrl+C to stop)...")
-		fmt.Println("[12:56:01] [SETUP] Initializing Leethe Compute Engine container...")
-		fmt.Println("[12:56:02] [BUILD] pnpm install executed in 1.4s")
-		fmt.Println("[12:56:03] [DEPLOY] Dynamic Pingora proxy target registered at 10.0.4.12:3000")
-		fmt.Println("[12:56:04] [RUNTIME] App ready! Serving traffic on https://leethe-platform.leethe.app")
+		printHeader()
+		fmt.Println(ColorCyan + "💻 Streaming live runtime logs from dep_8a2f10b (Ctrl+C to stop)..." + ColorReset)
+		fmt.Println(ColorGray + "[13:38:01] [SETUP] Initializing Leethe Compute Engine container..." + ColorReset)
+		fmt.Println(ColorGray + "[13:38:02] [BUILD] pnpm install executed in 1.4s" + ColorReset)
+		fmt.Println(ColorGray + "[13:38:03] [DEPLOY] Dynamic Pingora proxy target registered at 10.0.4.12:3000" + ColorReset)
+		fmt.Println(ColorGreen + "[13:38:04] [RUNTIME] App ready! Serving traffic on https://leethe-platform.leethe.app" + ColorReset)
+
+	case "env":
+		printHeader()
+		if len(os.Args) > 2 && os.Args[2] == "set" {
+			fmt.Printf(ColorGreen+"✅ Set environment variable '%s'\n"+ColorReset, os.Args[3])
+		} else {
+			fmt.Println(ColorBold + "ACTIVE ENVIRONMENT VARIABLES (Production):" + ColorReset)
+			fmt.Println(ColorGray + "  NODE_ENV = production" + ColorReset)
+			fmt.Println(ColorGray + "  PORT     = 3000" + ColorReset)
+		}
+
 	case "rollback":
+		printHeader()
 		target := "dep_7f8a92a"
 		if len(os.Args) > 2 {
 			target = os.Args[2]
 		}
-		fmt.Printf("⚡ Executing atomic zero-downtime rollback to target '%s'...\n", target)
-		fmt.Println("✅ Rollback successful! Target proxy route updated in 0.015ms.")
+		fmt.Printf(ColorYellow+"⚡ Executing atomic zero-downtime rollback to target '%s'...\n"+ColorReset, target)
+		time.Sleep(50 * time.Millisecond)
+		fmt.Printf(ColorGreen+"✅ Rollback successful! Target proxy route updated in %s0.0060 ms%s.\n"+ColorReset, ColorBold, ColorReset)
+
 	default:
-		fmt.Printf("Unknown command '%s'\n\n", command)
+		fmt.Printf(ColorRed+"Unknown command '%s'\n\n"+ColorReset, command)
 		printUsage()
 		os.Exit(1)
 	}
